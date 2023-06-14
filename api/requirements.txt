@@ -1,0 +1,12 @@
+flask
+gunicorn
+pandas
+numpy
+requests
+pickle-mixin
+joblib
+keras
+scipy
+scikit-learn
+seaborn
+xgboost
