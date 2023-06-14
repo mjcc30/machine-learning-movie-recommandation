@@ -1,12 +1,13 @@
 from wsgi import app
 
-PORT = 5100
+# dev config
 DEV = False
+PORT = 5050
 
 # Run app
 if (DEV):
-    app.run(debug=True, port=5050)
+    print("Api running on port : {} ".format(PORT))
+    app.run(debug=True, port=PORT)
 
 if __name__ == '__main__':
-    print("Api running on port : {} ".format(PORT))
-    app.run(host="0.0.0.0", port=PORT)
+    app.run(host="0.0.0.0")
