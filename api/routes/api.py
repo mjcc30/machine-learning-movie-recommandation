@@ -8,11 +8,24 @@ data = pd.read_csv('../data/data.csv')
 Create routes
 """
 
-
 def create_routes(app):
     """
     Predict movie params
-    """
+    """@app.route("/")
+    def home():
+        return "HELLO from vercel use flask"
+
+    @app.route('/example', methods=['POST'])
+    def example():
+        if request.method == 'POST':
+            data = request.form['data']
+            print(data)
+            return f"The data you sent is: {data}"
+
+    @app.route("/about")
+    def about():
+        return "HELLO about"
+
     @app.route('/api/movie/predict', methods=['POST'])
     def predict():
         loaded_model = pickle.load(open('../notebooks/model', 'rb'))

@@ -1,11 +1,11 @@
-import flask
+from flask import Flask
 from routes.api import create_routes
 
-Dev = True
+# Dev = True
 
 # Initialize flask
-app = flask.Flask(__name__)
-app.config["DEBUG"] = Dev
+app = Flask(__name__)
+# app.config["DEBUG"] = Dev
 
 # Set headers json for all requests
 @app.after_request
