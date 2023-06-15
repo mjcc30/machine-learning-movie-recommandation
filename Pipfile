@@ -6,7 +6,8 @@ name = "pypi"
 [packages]
 flask = "==2.3.2"
 pandas = "==2.0.2"
-pickle5 = "*"
+pickle-mixin = "*"
+scikit-learn = "*"
 
 [dev-packages]
 gunicorn = "*"

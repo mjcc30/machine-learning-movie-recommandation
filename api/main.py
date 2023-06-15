@@ -1,6 +1,7 @@
-from flask import Flask,request
+from flask import Flask,request, jsonify
 # import pandas as pd
-# import pickle
+import pickle5 as pickle
+import os
 
 # data = pd.read_csv('../data/data.csv')
 
@@ -24,22 +25,35 @@ def home():
 def about():
 	return "HELLO about"
 
-@app.route('/example', methods=['POST'])
+@app.route("/example", methods=["POST"])
 def example():
-    if request.method == 'POST':
-        data = request.form['data']
-        print(data)
-        return f"The data you sent is: {data}"
-    
+    if request.method == "POST":
+        data = request.get_json()  # Parse JSON data from request
+        if data and "key" in data:
+            return jsonify({"message": f"Received data: {data['key']}"})
+        return jsonify({"error": "Invalid JSON data or missing 'key' field."}), 400
+    return jsonify({"error": "Invalid request method."}), 405
 
-# @app.route('/predict', methods=['POST'])
-# def predict():
-#     loaded_model = pickle.load(open('../data/model', 'rb'))
+@app.route("/predict", methods=["POST"])
+def predict():
+    if request.method == "POST":
+        body = request.get_json()  # Parse JSON data from request
+        if body and "id" in body:
+            current_directory = os.getcwd()
+            api_directory = os.path.join(current_directory, 'api')
 
-#     body = request.get_json()
-#     print(body)
+            items = os.listdir(api_directory)
 
-#     new_data = {
+            for item in items:
+                print(item)
+            model_path = os.path.join(api_directory, 'model')
+            with open(model_path, 'rb') as file:
+                loaded_model = pickle.load(file)
+            return jsonify(body)
+        return jsonify({"error": "Invalid JSON data."}), 400
+    return jsonify({"error": "Invalid request method."}), 405
+
+#     data = {
 #         'index': [body['index']],
 #         'budget': [body['budget']],
 #         'genres': [body['genres']],
@@ -68,7 +82,7 @@ def example():
 #         'soup': [body['soup']],
 #     }
 
-#     X_predict = pd.DataFrame(new_data,
+#     X_predict = pd.DataFrame(data,
 #                             columns=[
 #                                 'index',
 #                                 'budget',
@@ -99,3 +113,16 @@ def example():
 #     result = loaded_model.predict(X_predict)
 #     return str(result[0])
 
+
+# flask
+# gunicorn
+# pandas
+# numpy
+# requests
+# pickle-mixin
+# joblib
+# keras
+# scipy
+# scikit-learn
+# seaborn
+# xgboost

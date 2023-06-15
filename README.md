@@ -56,7 +56,7 @@ npm start
 lancement des scripts pour l'api
 
 ```
+pipenv install
 cd api
-pip install -r requirements.txt
 gunicorn --bind 127.0.0.1:5050 wsgi:app
 ```
